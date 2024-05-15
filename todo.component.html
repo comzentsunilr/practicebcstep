@@ -1,0 +1,71 @@
+<div class="container-fluid bg-light">
+  <div class="container bg-light">
+    <div class="row mt-5" style="height: 800px;">
+      <div class="col"></div>
+      <div class="col-md-6 bg-white">
+        <div class="card bg-primary mt-3">
+          <h4 class="text-white text-center ps-2 pt-2 pb-2">To Do Task</h4>
+        </div>
+        <div class="shadow">
+          <div class="input-group p-3">
+            <input type="text" class="form-control" placeholder="Add Your Task" [(ngModel)]="addTaskData">
+            <button class="btn btn-outline-success" type="button" (click)="addTask()">Add</button>
+          </div>
+        </div>
+        <div class=" d-flex">
+          <h3 class="text-primary mt-5">Task: </h3>
+          <span class="btn btn-secondary d-grid justify-content-end mt-5 m-1" (click)="completedTaskList(tasks)">Completed</span>
+          <span class="btn btn-secondary d-grid justify-content-end mt-5 m-1" (click)="getAllTask()">AllTask</span>
+        </div>
+        <div style="overflow-y: auto; height: 350px;">
+          <div class="m-3" *ngFor="let data of taskArr">
+            <div class="p-2 shadow">
+              <div class="input-group row ps-3 col-12 d-flex">
+                <div class="col-1">
+                  <input type="checkbox">
+                </div>
+                <div class="card col-md-8 border-0 col-8">{{data.task}}</div>
+                <div class="col-3 d-flex">
+                  <div class="btn btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  (click)="callEdit(data)">Edit</div>
+                  <!-- @if(tasks.completed){
+                    <div class="btn btn-success me-1"><i class="fa-solid fa-check"></i></div>
+                  }@else {
+                  } -->
+                  <div>
+                    <div [ngClass]="{'btn btn-success me-1': this.completed === true, 'btn btn-outline-success me-1': this.completed === false}"  (click)="collComplete(data)">
+                      <i class="fa-solid fa-check"></i>
+                    </div>
+                    <!-- <div [Class.btn btn-success me-1]="!completed" (click)="collComplete(data)"><i class="fa-solid fa-check"></i></div> -->
+                  </div>
+                  <!--[ngClass]="tasks.completed==true?'btn btn-success me-1':'btn btn-outline-success me-1'" (click)="collComplete(data)"
+                  [class.btn-success]="tasks.completed==true" [class.btn-outline-success]="tasks.completed==false" style="transform: translate(btn btn-success);"-->
+                <div class="btn btn-outline-danger" (click)="deleteTask(data)">X</div>              
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLeble" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLeble">Edit Task</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <input type="text" class="form-control" placeholder="Add Your Task" name="task"
+                  [(ngModel)]="editTaskData">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="editTask()">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col"></div>
+    </div>
+  </div>
+</div>
